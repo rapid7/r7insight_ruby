@@ -7,8 +7,7 @@ require 'uri'
 module Le
   module Host
     class HTTP
-      API_SERVER = 'data.logentries.com'
-      DATA_ENDPOINT = 'data.logentries.com'
+      DATA_ENDPOINT = '.data.logs.insight.rapid7.com'
       DATA_PORT_UNSECURE = 80
       DATA_PORT_SECURE = 443
       API_PORT = 10000
@@ -20,10 +19,10 @@ module Le
 
       include Le::Host::InstanceMethods
 #!      attr_accessor :token, :queue, :started, :thread, :conn, :local, :debug, :ssl, :datahub_enabled, :dathub_ip, :datahub_port, :host_id, :custom_host, :host_name_enabled, :host_name
-      attr_accessor :token, :queue, :started, :thread, :conn, :local, :debug, :ssl, :datahub_enabled, :datahub_ip, :datahub_port, :datahub_endpoint, :host_id, :host_name_enabled, :host_name, :custom_host, :udp_port, :use_data_endpoint
+      attr_accessor :token, :region,:queue, :started, :thread, :conn, :local, :debug, :ssl, :datahub_enabled, :datahub_ip, :datahub_port, :datahub_endpoint, :host_id, :host_name_enabled, :host_name, :custom_host, :udp_port, :use_data_endpoint
 
 
-      def initialize(token, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp_port, use_data_endpoint)
+      def initialize(token, region, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp_port, use_data_endpoint)
           if local
             device = if local.class <= TrueClass
               if defined?(Rails)
@@ -37,6 +36,7 @@ module Le
           @logger_console = Logger.new(device)
           end
 
+          @region = region
           @local = !!local
           @debug= debug
           @ssl = ssl
@@ -58,6 +58,10 @@ module Le
           exit
         end
 
+ #check if region was specified
+        if region.empty?
+          puts ("\n\nYou need to specify a region. Options: eu, us")
+        end
 
  #check if DataHub is enabled... if datahub is not enabled, set the token to the token's parameter.  If DH is enabled, make the token empty.
         if (!datahub_enabled)
@@ -166,8 +170,10 @@ module Le
       def openConnection
         dbg "LE: Reopening connection to Logentries API server"
 
+
         if @use_data_endpoint
-            host = DATA_ENDPOINT
+            host = @region + DATA_ENDPOINT
+
             if @ssl
               port = DATA_PORT_SECURE
             else
@@ -175,13 +181,13 @@ module Le
             end
         else
           if @udp_port
-            host = API_SERVER
+            host = @region + DATA_ENDPOINT
             port = @udp_port
           elsif @datahub_enabled
             host = @datahub_ip
             port = @datahub_port
           else
-            host = API_SERVER
+            host = @region + DATA_ENDPOINT
             port = @ssl ? API_SSL_PORT: API_PORT
           end
         end
