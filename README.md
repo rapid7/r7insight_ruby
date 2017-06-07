@@ -79,4 +79,4 @@ For the `REGION` argument, provide the region of your account, e.g: 'eu', 'us'.
 
 Additionally, when connecting via UDP, be sure to specify a port using the udp_port parameter:
 
-    Rails.logger = Le.new('', :udp_port => 13287)
+    Rails.logger = Le.new('', 'REGION' :udp_port => 13287)
