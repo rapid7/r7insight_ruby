@@ -2,7 +2,7 @@ module Le
   module Host
 
     def self.new(token, region, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp_port, use_data_endpoint)
-      Le::Host::HTTP.new(token, region, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp_port, use_data_endpoint)
+      Le::Host::CONNECTION.new(token, region, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp_port, use_data_endpoint)
     end
 
     module InstanceMethods
@@ -23,4 +23,4 @@ module Le
   end
 end
 
-require File.join(File.dirname(__FILE__), 'host', 'http')
+require File.join(File.dirname(__FILE__), 'host', 'connection')

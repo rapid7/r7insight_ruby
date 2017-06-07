@@ -6,11 +6,10 @@ require 'uri'
 
 module Le
   module Host
-    class HTTP
+    class CONNECTION
       DATA_ENDPOINT = '.data.logs.insight.rapid7.com'
       DATA_PORT_UNSECURE = 80
       DATA_PORT_SECURE = 443
-      API_PORT = 10000
       API_SSL_PORT = 20000
       SHUTDOWN_COMMAND = "DIE!DIE!"  # magic command string for async worker to shutdown
       SHUTDOWN_MAX_WAIT = 10         # max seconds to wait for queue to clear on shutdown
@@ -109,9 +108,9 @@ module Le
       end
 
       def init_debug
-        filePath = "logentriesGem.log"
+        filePath = "r7insightGem.log"
         if File.exist?('log/')
-          filePath = "log/logentriesGem.log"
+          filePath = "log/r7insightGem.log"
         end
         @debug_logger = Logger.new(filePath)
       end
@@ -188,7 +187,7 @@ module Le
             port = @datahub_port
           else
             host = @region + DATA_ENDPOINT
-            port = @ssl ? API_SSL_PORT: API_PORT
+            port = @ssl ? DATA_PORT_SECURE: DATA_PORT_UNSECURE
           end
         end
 

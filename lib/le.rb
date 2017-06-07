@@ -27,7 +27,7 @@ module Le
     self.checkParams(token, region, opt_datahub_enabled, opt_udp_port)
 
 
-    host = Le::Host.new(token, region,opt_local, opt_debug, opt_ssl, opt_datahub_endpoint, opt_host_id, opt_custom_host, opt_udp_port, opt_use_data_endpoint)
+    host = Le::Host.new(token, region, opt_local, opt_debug, opt_ssl, opt_datahub_endpoint, opt_host_id, opt_custom_host, opt_udp_port, opt_use_data_endpoint)
 
     if defined?(ActiveSupport::TaggedLogging) &&  opt_tag
       logger = ActiveSupport::TaggedLogging.new(Logger.new(host))

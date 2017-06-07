@@ -1,19 +1,8 @@
 require 'spec_helper'
 require 'pathname'
 
-
-#1. Data endpoint changed to
-# eu.data.logs.insight.rapid7.com
-# us.data.logs.insight.rapid7.com
-# depending on user choice. Japan region will be added here also
-
-#TODO:
-#1. Change HTTP to TCP
-
 logger = Le.new('185a71d5-32a7-4007-a12d-3295c75a10e2', 'eu')
-
 logger.info("ssl")
-
 
 describe Le::Host::HTTP do
 
