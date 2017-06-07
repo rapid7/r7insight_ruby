@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 describe Le::Host do
 
   let(:token)   { '11111111-2222-3333-aaaa-bbbbbbbbbbbb' }
@@ -7,6 +8,7 @@ describe Le::Host do
   let(:debug)   { false }
   let(:ssl)     { true }
   let(:udp)     { nil }
+
 
 
   let(:datahub_endpoint) { ["", 10000] }

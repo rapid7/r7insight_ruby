@@ -4,7 +4,7 @@ require 'logger'
 
 module Le
 
-  def self.new(token, options={})
+  def self.new(token, region, options={})
 
     opt_local     = options[:local]                     || false
     opt_debug     = options[:debug]                     || false
@@ -24,10 +24,10 @@ module Le
     opt_udp_port = options[:udp_port]                   || nil
     opt_use_data_endpoint = options[:data_endpoint]     || false
 
-    self.checkParams(token, opt_datahub_enabled, opt_udp_port)
+    self.checkParams(token, region, opt_datahub_enabled, opt_udp_port)
 
 
-    host = Le::Host.new(token, opt_local, opt_debug, opt_ssl, opt_datahub_endpoint, opt_host_id, opt_custom_host, opt_udp_port, opt_use_data_endpoint)
+    host = Le::Host.new(token, region, opt_local, opt_debug, opt_ssl, opt_datahub_endpoint, opt_host_id, opt_custom_host, opt_udp_port, opt_use_data_endpoint)
 
     if defined?(ActiveSupport::TaggedLogging) &&  opt_tag
       logger = ActiveSupport::TaggedLogging.new(Logger.new(host))
@@ -44,7 +44,7 @@ module Le
     logger
   end
 
-  def self.checkParams(token, opt_datahub_enabled, opt_udp_port)
+  def self.checkParams(token, region, opt_datahub_enabled, opt_udp_port)
     # Check if the key is valid UUID format
 
     if (!opt_datahub_enabled && !opt_udp_port)  # test Token only when DataHub and UDP are not enabled
@@ -52,7 +52,13 @@ module Le
          puts "\nLE: It appears the LOGENTRIES_TOKEN you entered is invalid!\n"
       else
         (token="")
-     end
+      end
+
+      # This checks if region is valid. So far we have Europe and US
+      if !region
+        puts "\nLE: You need to specify region. Options: eu, us"
+      end
+
    end
   end
 
