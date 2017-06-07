@@ -73,6 +73,10 @@ You can also specify the default level of the logger by adding a :
     Rails.logger = Le.new('LOG_TOKEN', 'REGION', :log_level => Logger::<level>)
 
 For the `LOG_TOKEN` argument, paste the token for the logfile you created earlier in the InsightOps UI or empty string for
-a UDP connection. Additionally, when connecting via UDP, be sure to specify a port using the udp_port parameter:
+a UDP connection.
+
+For the `REGION` argument, provide the region of your account, e.g: 'eu', 'us'.
+
+Additionally, when connecting via UDP, be sure to specify a port using the udp_port parameter:
 
     Rails.logger = Le.new('', :udp_port => 13287)
