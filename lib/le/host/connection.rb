@@ -138,7 +138,7 @@ module Le
         if message.scan(/\n/).empty?
           @queue << "#{ @token } #{ message } \n"
         else
-          @queue << "#{ message.gsub(/^/, "\1#{ @token } [#{ random_message_id }]") }\n"
+          @queue << "#{ message.gsub(/^/, "#{ @token } [#{ random_message_id }]") }\n"
         end
 
 
