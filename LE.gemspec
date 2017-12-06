@@ -5,7 +5,7 @@ require 'le'
 
 Gem::Specification.new do |gem|
   gem.name	= "r7insight"
-  gem.version	= "2.7.5"
+  gem.version	= "2.7.6"
   gem.date	= Time.now
   gem.summary	= "InsightOps logging plugin"
   gem.licenses    = ["MIT"]
