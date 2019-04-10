@@ -32,7 +32,7 @@ To install the gem you must edit the Gemfile in your local heroku environment
 
 Add the following line:
 
-    gem 'r7insight'
+    gem 'r7insight', require: 'le'
 
 Then from the cmd line run the following command:
 
