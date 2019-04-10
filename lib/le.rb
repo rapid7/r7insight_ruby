@@ -30,7 +30,8 @@ module Le
     host = Le::Host.new(token, region, opt_local, opt_debug, opt_ssl, opt_datahub_endpoint, opt_host_id, opt_custom_host, opt_udp_port, opt_use_data_endpoint)
 
     if defined?(ActiveSupport::TaggedLogging) &&  opt_tag
-      logger = ActiveSupport::TaggedLogging.new(Logger.new(host))
+      logger_klass = defined?(ActiveSupport::Logger) ? ActiveSupport::Logger : Logger
+      logger = ActiveSupport::TaggedLogging.new(logger_klass.new(host))
     elsif defined?(ActiveSupport::Logger)
       logger = ActiveSupport::Logger.new(host)
       logger.formatter = host.formatter if host.respond_to?(:formatter)
