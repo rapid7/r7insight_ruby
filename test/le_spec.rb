@@ -14,23 +14,23 @@ describe Le do
 
     describe "when initialised with just a token" do
       let(:logger)         { Le.new(token) }
-      specify { logger.must_be_instance_of Logger }
-      specify { logdev.must_be_instance_of Le::Host::HTTP }
-      specify { logdev.local.must_equal false }
-      specify { logger_console.must_be_nil }
+      specify { _(logger).must_be_instance_of Logger }
+      specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
+      specify { _(logdev.local).must_equal false }
+      specify { _(logger_console).must_be_nil }
     end
 
     describe "and :local is false" do
-      specify { logdev.local.must_equal false }
-      specify { logger_console.must_be_nil }
+      specify { _(logdev.local).must_equal false }
+      specify { _(logger_console).must_be_nil }
     end
 
     describe "and :local is true" do
       let(:local)   { true }
 
-      specify { logdev.local.must_equal true }
-      specify { logger_console.must_be_instance_of Logger }
-      specify { logger_console_dev.must_be_instance_of IO }
+      specify { _(logdev.local).must_equal true }
+      specify { _(logger_console).must_be_instance_of Logger }
+      specify { _(logger_console_dev).must_be_instance_of IO }
     end
 
 
@@ -41,31 +41,31 @@ describe Le do
       describe "Pathname" do
         let(:log_file) { local_test_log }
 
-        specify { logdev.must_be_instance_of Le::Host::HTTP }
-        specify { logdev.local.must_equal true }
-        specify { logger_console.must_be_instance_of Logger }
-        specify { logger_console_dev.must_be_instance_of File }
-        specify { logger_console_dev.path.must_match 'local_log.log' }
+        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
+        specify { _(logdev.local).must_equal true }
+        specify { _(logger_console).must_be_instance_of Logger }
+        specify { _(logger_console_dev).must_be_instance_of File }
+        specify { _(logger_console_dev.path).must_match 'local_log.log' }
       end
 
       describe "path string" do
         let(:log_file) { local_test_log.to_s }
 
-        specify { logdev.must_be_instance_of Le::Host::HTTP }
-        specify { logdev.local.must_equal true }
-        specify { logger_console.must_be_instance_of Logger }
-        specify { logger_console_dev.must_be_instance_of File }
-        specify { logger_console_dev.path.must_match 'local_log.log' }
+        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
+        specify { _(logdev.local).must_equal true }
+        specify { _(logger_console).must_be_instance_of Logger }
+        specify { _(logger_console_dev).must_be_instance_of File }
+        specify { _(logger_console_dev.path).must_match 'local_log.log' }
       end
 
       describe "File" do
         let(:log_file) { File.new(local_test_log, 'w') }
 
-        specify { logdev.must_be_instance_of Le::Host::HTTP }
-        specify { logdev.local.must_equal true }
-        specify { logger_console.must_be_instance_of Logger }
-        specify { logger_console_dev.must_be_instance_of File }
-        specify { logger_console_dev.path.must_match 'local_log.log' }
+        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
+        specify { _(logdev.local).must_equal true }
+        specify { _(logger_console).must_be_instance_of Logger }
+        specify { _(logger_console_dev).must_be_instance_of File }
+        specify { _(logger_console_dev.path).must_match 'local_log.log' }
       end
 
     end
@@ -88,17 +88,17 @@ describe Le do
     end
 
     describe "and :local is false" do
-      specify { logdev.local.must_equal false }
-      specify { logger_console.must_be_nil }
+      specify { _(logdev.local).must_equal false }
+      specify { _(logger_console).must_be_nil }
     end
 
     describe "and :local is true" do
       let(:local)   { true }
 
-      specify { logdev.local.must_equal true }
-      specify { logger_console.must_be_instance_of Logger }
-      specify { logger_console_dev.must_be_instance_of File }
-      specify { logger_console_dev.path.must_match 'test.log' }
+      specify { _(logdev.local).must_equal true }
+      specify { _(logger_console).must_be_instance_of Logger }
+      specify { _(logger_console_dev).must_be_instance_of File }
+      specify { _(logger_console_dev.path).must_match 'test.log' }
     end
 
     describe "and :local => " do
@@ -108,31 +108,31 @@ describe Le do
       describe "Pathname" do
         let(:log_file) { local_test_log }
 
-        specify { logdev.must_be_instance_of Le::Host::HTTP }
-        specify { logdev.local.must_equal true }
-        specify { logger_console.must_be_instance_of Logger }
-        specify { logger_console_dev.must_be_instance_of File }
-        specify { logger_console_dev.path.must_match 'local_log.log' }
+        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
+        specify { _(logdev.local).must_equal true }
+        specify { _(logger_console).must_be_instance_of Logger }
+        specify { _(logger_console_dev).must_be_instance_of File }
+        specify { _(logger_console_dev.path).must_match 'local_log.log' }
       end
 
       describe "path string" do
         let(:log_file) { local_test_log.to_s }
 
-        specify { logdev.must_be_instance_of Le::Host::HTTP }
-        specify { logdev.local.must_equal true }
-        specify { logger_console.must_be_instance_of Logger }
-        specify { logger_console_dev.must_be_instance_of File }
-        specify { logger_console_dev.path.must_match 'local_log.log' }
+        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
+        specify { _(logdev.local).must_equal true }
+        specify { _(logger_console).must_be_instance_of Logger }
+        specify { _(logger_console_dev).must_be_instance_of File }
+        specify { _(logger_console_dev.path).must_match 'local_log.log' }
       end
 
       describe "File" do
         let(:log_file) { File.new(local_test_log, 'w') }
 
-        specify { logdev.must_be_instance_of Le::Host::HTTP }
-        specify { logdev.local.must_equal true }
-        specify { logger_console.must_be_instance_of Logger }
-        specify { logger_console_dev.must_be_instance_of File }
-        specify { logger_console_dev.path.must_match 'local_log.log' }
+        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
+        specify { _(logdev.local).must_equal true }
+        specify { _(logger_console).must_be_instance_of Logger }
+        specify { _(logger_console_dev).must_be_instance_of File }
+        specify { _(logger_console_dev.path).must_match 'local_log.log' }
       end
 
     end
