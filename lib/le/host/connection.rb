@@ -180,16 +180,8 @@ module Le
             ssl_context = OpenSSL::SSL::SSLContext.new
             ssl_context.cert_store = cert_store
 
-            ssl_version_candidates = %i[TLSv1_2 TLSv1_1 TLSv1]
-            ssl_version_candidates = ssl_version_candidates.select { |version| OpenSSL::SSL::SSLContext::METHODS.include? version }
-            if ssl_version_candidates.empty?
-              raise 'Could not find suitable TLS version'
-            end
-
-            # currently we only set the version when we have no choice
-            if ssl_version_candidates.length == 1
-              ssl_context.ssl_version = ssl_version_candidates[0]
-            end
+            ssl_context.min_version = OpenSSL::SSL::TLS1_VERSION
+            ssl_context.max_version = OpenSSL::SSL::TLS1_2_VERSION
             ssl_context.verify_mode = OpenSSL::SSL::VERIFY_PEER
             ssl_socket = OpenSSL::SSL::SSLSocket.new(socket, ssl_context)
             ssl_socket.hostname = host if ssl_socket.respond_to?(:hostname=)
