@@ -5,14 +5,15 @@ require 'spec_helper'
 describe Le do
   let(:token)              { '11111111-2222-3333-aaaa-bbbbbbbbbbbb' }
   let(:local)              { false }
-  let(:logger)             { Le.new(token, local: local) }
+  let(:region)             { 'eu' }
+  let(:logger)             { Le.new(token, region, local: local) }
   let(:logdev)             { logger.instance_variable_get(:@logdev).dev }
   let(:logger_console)     { logdev.instance_variable_get(:@logger_console) }
   let(:logger_console_dev) { logger_console.instance_variable_get(:@logdev).dev }
 
   describe 'when non-Rails environment' do
     describe 'when initialised with just a token' do
-      let(:logger) { Le.new(token) }
+      let(:logger) { Le.new(token, region) }
       specify { _(logger).must_be_instance_of Logger }
       specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
       specify { _(logdev.local).must_equal false }
