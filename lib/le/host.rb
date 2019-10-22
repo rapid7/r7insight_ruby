@@ -1,10 +1,16 @@
-module Le
-  module Host
+# frozen_string_literal: true
 
-    def self.new(token, region, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp_port, use_data_endpoint)
-      Le::Host::CONNECTION.new(token, region, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp_port, use_data_endpoint)
+module Le
+  # InsightOps Logging Host
+  module Host
+    def self.new(token, region, local, debug, ssl, datahub_endpoint, host_id,
+                 custom_host, udp_port, use_data_endpoint)
+      Le::Host::CONNECTION.new(token, region, local, debug, ssl,
+                               datahub_endpoint, host_id, custom_host,
+                               udp_port, use_data_endpoint)
     end
 
+    # Log formatter
     module InstanceMethods
       def formatter
         proc do |severity, datetime, _, msg|
@@ -19,7 +25,6 @@ module Le
         "severity=#{severity}, #{message_in.lstrip}"
       end
     end
-
   end
 end
 

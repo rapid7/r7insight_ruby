@@ -1,18 +1,19 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'pathname'
 
 describe Le::Host::CONNECTION do
-
   let(:token)              { '11111111-2222-3333-aaaa-bbbbbbbbbbbb' }
   let(:local)              { false }
   let(:debug)              { false }
   let(:ssl)                { false }
   let(:udp)                { nil }
 
-  let(:datahub_endpoint)  { ["", 10000]}
-  let(:host_id)           {""}
-  let(:custom_host)       {[false, ""]}
-  let(:endpoint)       {false}
+  let(:datahub_endpoint)  { ['', 10_000] }
+  let(:host_id)           { '' }
+  let(:custom_host)       { [false, ''] }
+  let(:endpoint) { false }
 
   let(:host)               { Le::Host::CONNECTION.new(token, local, debug, ssl, datahub_endpoint, host_id, custom_host, udp, endpoint) }
 
