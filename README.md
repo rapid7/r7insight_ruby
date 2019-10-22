@@ -15,6 +15,17 @@ Example
     Rails.logger.warn("warning message")
     Rails.logger.debug("debug message")
 
+Development
+-------
+When developing some functionality you will require the following:  
+- ruby version `2.6.5`
+- bundle version `2.0.2`
+- gem version `2.5.2.3`
+- rvm version `1.29.9`
+- `bundle install --jobs=3 --retry=3`
+- `make test` for testing
+
+JetBrains RubyMine was used to develop this gem.
 
 Howto
 -----
