@@ -12,12 +12,32 @@ describe Le do
   let(:logger_console_dev) { logger_console.instance_variable_get(:@logdev).dev }
 
   describe 'when non-Rails environment' do
-    describe 'when initialised with just a token' do
+    describe 'and initialised with just a token' do
       let(:logger) { Le.new(token, region) }
       specify { _(logger).must_be_instance_of Logger }
       specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
       specify { _(logdev.local).must_equal false }
       specify { _(logger_console).must_be_nil }
+
+      describe 'then :ssl is true' do
+        specify { _(logdev.ssl).must_equal true }
+      end
+    end
+
+    describe 'and initialized with :ssl => true' do
+      let(:logger) { Le.new(token, region, ssl: true) }
+
+      describe 'then :ssl is true' do
+        specify { _(logdev.ssl).must_equal true }
+      end
+    end
+
+    describe 'and initialized with :ssl => false' do
+      let(:logger) { Le.new(token, region, ssl: false) }
+
+      describe 'then :ssl is false' do
+        specify { _(logdev.ssl).must_equal false }
+      end
     end
 
     describe 'and :local is false' do
@@ -86,6 +106,10 @@ describe Le do
     end
     after do
       Object.send(:remove_const, :Rails)
+    end
+
+    describe 'and :ssl is true' do
+      specify { _(logdev.ssl).must_equal true }
     end
 
     describe 'and :local is false' do
