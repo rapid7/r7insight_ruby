@@ -1,4 +1,4 @@
-.PHONY: test
+.PHONY: test build bump-major bump-minor bump-patch help
 .DEFAULT_GOAL := help
 
 test: ## Run the unit tests
