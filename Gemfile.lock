@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    r7insight (2.7.6)
+    r7insight (3.0.0)
 
 GEM
   remote: https://rubygems.org/
