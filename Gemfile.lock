@@ -26,11 +26,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
-  bundler
-  minitest
+  activesupport (~> 6.0.0)
+  bundler (~> 2.0.0)
+  minitest (~> 5.12.2)
   r7insight!
-  rake
+  rake (~> 13.0.0)
 
 BUNDLED WITH
    2.0.2

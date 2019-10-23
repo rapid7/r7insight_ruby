@@ -33,6 +33,11 @@ Development flow
 - Push again into the branch
 - Pull request should get approved and merged
 
+Deployment information for Rapid7 developers
+- Pull down the merged master which includes the Pull request changes
+- `make build`
+- `gem push r7insight<VERSION>.gem`
+
 JetBrains RubyMine was used to develop this gem.  
 
 Howto
@@ -60,7 +65,9 @@ Then from the cmd line run the following command:
 This will install the gem on your local environment.
 
 The next step is to configure the default rails logger to use the insightops logger.  
+Ensure you add a `require` to load in the package:
 
+    require 'le.rb'
 
 In your environment configuration file ( for production : `config/environments/production.rb`), add the following:
 
