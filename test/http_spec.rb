@@ -23,12 +23,30 @@ describe Le::Host::CONNECTION do
 
   let(:logger_console) { host.instance_variable_get(:@logger_console) }
 
-  specify { _(host).must_be_instance_of Le::Host::CONNECTION }
-  specify { _(host.region).must_equal 'eu' }
-  specify { _(host.local).must_equal false }
-  specify { _(host.debug).must_equal false }
-  specify { _(host.ssl).must_equal false }
-  specify { _(host.udp_port).nil? }
-  specify { _(host_id).must_equal '' }
-  specify { _(custom_host).must_equal [false, ''] }
+  describe 'host' do
+    it 'is an instance of CONNECTION' do
+      assert_instance_of(Le::Host::CONNECTION, host)
+    end
+    it 'region is expected value' do
+      assert_equal(host.region, 'eu')
+    end
+    it 'local is expected value' do
+      refute(host.local)
+    end
+    it 'debug is expected value' do
+      refute(host.debug)
+    end
+    it 'ssl is expected value' do
+      refute(host.ssl)
+    end
+    it 'udp port is expected value' do
+      assert_nil(host.udp_port)
+    end
+    it 'id is expected value' do
+      assert_equal(host_id, '')
+    end
+    it 'custom_host is expected value' do
+      assert_equal(custom_host, [false, ''])
+    end
+  end
 end

@@ -19,5 +19,9 @@ describe Le::Host do
     Le::Host::CONNECTION.new(token, region, local, debug, ssl, datahub_endpoint,
                              host_id, custom_host, udp, use_data_endpoint)
   end
-  specify { _(host).must_be_instance_of Le::Host::CONNECTION }
+  describe 'host' do
+    it 'is an instance of CONNECTION' do
+      assert_instance_of(Le::Host::CONNECTION, host)
+    end
+  end
 end

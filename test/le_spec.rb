@@ -12,45 +12,76 @@ describe Le do
   let(:logger_console_dev) { logger_console.instance_variable_get(:@logdev).dev }
 
   describe 'when non-Rails environment' do
-    describe 'and initialised with just a token' do
+    describe 'is initialised with just a token' do
       let(:logger) { Le.new(token, region) }
-      specify { _(logger).must_be_instance_of Logger }
-      specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
-      specify { _(logdev.local).must_equal false }
-      specify { _(logger_console).must_be_nil }
 
-      describe 'then :ssl is true' do
-        specify { _(logdev.ssl).must_equal true }
+      describe 'logger' do
+        it 'should be a Logger instance' do
+          assert_instance_of(Logger, logger)
+        end
+      end
+
+      describe 'logger device' do
+        it 'is an instance of Le::Host::CONNECTION' do
+          assert_instance_of(Le::Host::CONNECTION, logdev)
+        end
+        it 'local is false' do
+          refute(logdev.local)
+        end
+        it 'ssl is true' do
+          assert(logdev.ssl)
+        end
+      end
+
+      describe 'logger console' do
+        it 'is nil' do
+          assert_nil(logger_console)
+        end
       end
     end
 
-    describe 'and initialized with :ssl => true' do
+    describe 'is initialized with :ssl => true' do
       let(:logger) { Le.new(token, region, ssl: true) }
 
-      describe 'then :ssl is true' do
-        specify { _(logdev.ssl).must_equal true }
+      describe 'logger device' do
+        it 'ssl is true' do
+          assert(logdev.ssl)
+        end
       end
     end
 
-    describe 'and initialized with :ssl => false' do
+    describe 'is initialized with :ssl => false' do
       let(:logger) { Le.new(token, region, ssl: false) }
 
-      describe 'then :ssl is false' do
-        specify { _(logdev.ssl).must_equal false }
+      describe 'logger device' do
+        it 'ssl is false' do
+          refute(logdev.ssl)
+        end
       end
     end
 
-    describe 'and :local is false' do
-      specify { _(logdev.local).must_equal false }
-      specify { _(logger_console).must_be_nil }
+    it 'logger device local is false' do
+      refute(logdev.local)
     end
 
-    describe 'and :local is true' do
+    it 'logger console is nil' do
+      assert_nil(logger_console)
+    end
+
+    describe 'local is set to true' do
       let(:local) { true }
 
-      specify { _(logdev.local).must_equal true }
-      specify { _(logger_console).must_be_instance_of Logger }
-      specify { _(logger_console_dev).must_be_instance_of IO }
+      it 'logger device local is true' do
+        assert(logdev.local)
+      end
+
+      it 'logger console is instance of Logger' do
+        assert_instance_of(Logger, logger_console)
+      end
+
+      it 'logger console device instance of IO' do
+        assert_instance_of(IO, logger_console_dev)
+      end
     end
 
     describe 'and :local => ' do
@@ -63,31 +94,83 @@ describe Le do
       describe 'Pathname' do
         let(:log_file) { local_test_log }
 
-        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
-        specify { _(logdev.local).must_equal true }
-        specify { _(logger_console).must_be_instance_of Logger }
-        specify { _(logger_console_dev).must_be_instance_of File }
-        specify { _(logger_console_dev.path).must_match 'local_log.log' }
+        describe 'logger device' do
+          it 'is an instance of our CONNECTION' do
+            assert_instance_of(Le::Host::CONNECTION, logdev)
+          end
+          it 'local is true' do
+            assert(logdev.local)
+          end
+        end
+
+        describe 'logger console' do
+          it 'is an instance of Logger' do
+            assert_instance_of(Logger, logger_console)
+          end
+        end
+
+        describe 'logger console device' do
+          it 'is an instance of File' do
+            assert_instance_of(File, logger_console_dev)
+          end
+          it 'path matches specified log file' do
+            assert_match('local_log.log', logger_console_dev.path)
+          end
+        end
       end
 
       describe 'path string' do
         let(:log_file) { local_test_log.to_s }
 
-        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
-        specify { _(logdev.local).must_equal true }
-        specify { _(logger_console).must_be_instance_of Logger }
-        specify { _(logger_console_dev).must_be_instance_of File }
-        specify { _(logger_console_dev.path).must_match 'local_log.log' }
+        describe 'logger device' do
+          it 'is an instance of CONNECTION' do
+            assert_instance_of(Le::Host::CONNECTION, logdev)
+          end
+          it 'local is true' do
+            assert(logdev.local)
+          end
+        end
+
+        describe 'logger console' do
+          it 'is an instance of Logger' do
+            assert_instance_of(Logger, logger_console)
+          end
+        end
+
+        describe 'logger console device' do
+          it 'is an instance of File' do
+            assert_instance_of(File, logger_console_dev)
+          end
+          it 'path matches expected log filename' do
+            assert_match('local_log.log', logger_console_dev.path)
+          end
+        end
       end
 
       describe 'File' do
         let(:log_file) { File.new(local_test_log, 'w') }
 
-        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
-        specify { _(logdev.local).must_equal true }
-        specify { _(logger_console).must_be_instance_of Logger }
-        specify { _(logger_console_dev).must_be_instance_of File }
-        specify { _(logger_console_dev.path).must_match 'local_log.log' }
+        describe 'logger device' do
+          it 'is an instance of CONNECTION' do
+            assert_instance_of(Le::Host::CONNECTION, logdev)
+          end
+          it 'local is true' do
+            assert(logdev.local)
+          end
+        end
+        describe 'logger console' do
+          it 'is an instance of Logger' do
+            assert_instance_of(Logger, logger_console)
+          end
+        end
+        describe 'logger console device' do
+          it 'is an instance of File' do
+            assert_instance_of(File, logger_console_dev)
+          end
+          it 'path matches expected log location' do
+            assert_match('local_log.log', logger_console_dev.path)
+          end
+        end
       end
     end
   end
@@ -108,22 +191,36 @@ describe Le do
       Object.send(:remove_const, :Rails)
     end
 
-    describe 'and :ssl is true' do
-      specify { _(logdev.ssl).must_equal true }
+    it 'ssl is true' do
+      assert(logdev.ssl)
     end
 
-    describe 'and :local is false' do
-      specify { _(logdev.local).must_equal false }
-      specify { _(logger_console).must_be_nil }
+    it 'local is false' do
+      refute(logdev.local)
+      assert_nil(logger_console)
     end
 
     describe 'and :local is true' do
       let(:local) { true }
 
-      specify { _(logdev.local).must_equal true }
-      specify { _(logger_console).must_be_instance_of Logger }
-      specify { _(logger_console_dev).must_be_instance_of File }
-      specify { _(logger_console_dev.path).must_match 'test.log' }
+      describe 'logger device' do
+        it 'local is true' do
+          assert(logdev.local)
+        end
+      end
+      describe 'logger console' do
+        it 'is an instance of Logger' do
+          assert_instance_of(Logger, logger_console)
+        end
+      end
+      describe 'logger console device' do
+        it 'is an instance of File' do
+          assert_instance_of(File, logger_console_dev)
+        end
+        it 'path matches expected log filename' do
+          assert_match('test.log', logger_console_dev.path)
+        end
+      end
     end
 
     describe 'and :local => ' do
@@ -136,31 +233,79 @@ describe Le do
       describe 'Pathname' do
         let(:log_file) { local_test_log }
 
-        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
-        specify { _(logdev.local).must_equal true }
-        specify { _(logger_console).must_be_instance_of Logger }
-        specify { _(logger_console_dev).must_be_instance_of File }
-        specify { _(logger_console_dev.path).must_match 'local_log.log' }
+        describe 'logger device' do
+          it 'is an instance of CONNECTION' do
+            assert_instance_of(Le::Host::CONNECTION, logdev)
+          end
+          it 'local is true' do
+            assert(logdev.local)
+          end
+        end
+        describe 'logger console' do
+          it 'is an instance of Logger' do
+            assert_instance_of(Logger, logger_console)
+          end
+        end
+        describe 'logger console device' do
+          it 'is an instance of File' do
+            assert_instance_of(File, logger_console_dev)
+          end
+          it 'path matches expected log filename' do
+            assert_match('local_log.log', logger_console_dev.path)
+          end
+        end
       end
 
       describe 'path string' do
         let(:log_file) { local_test_log.to_s }
 
-        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
-        specify { _(logdev.local).must_equal true }
-        specify { _(logger_console).must_be_instance_of Logger }
-        specify { _(logger_console_dev).must_be_instance_of File }
-        specify { _(logger_console_dev.path).must_match 'local_log.log' }
+        describe 'logger device' do
+          it 'is an instance of CONNECTION' do
+            assert_instance_of(Le::Host::CONNECTION, logdev)
+          end
+          it 'local is true' do
+            assert(logdev.local)
+          end
+        end
+        describe 'logger console' do
+          it 'is an instance of Logger' do
+            assert_instance_of(Logger, logger_console)
+          end
+        end
+        describe 'logger console device' do
+          it 'is an instance of File' do
+            assert_instance_of(File, logger_console_dev)
+          end
+          it 'path matches expected log filename' do
+            assert_match('local_log.log', logger_console_dev.path)
+          end
+        end
       end
 
       describe 'File' do
         let(:log_file) { File.new(local_test_log, 'w') }
 
-        specify { _(logdev).must_be_instance_of Le::Host::CONNECTION }
-        specify { _(logdev.local).must_equal true }
-        specify { _(logger_console).must_be_instance_of Logger }
-        specify { _(logger_console_dev).must_be_instance_of File }
-        specify { _(logger_console_dev.path).must_match 'local_log.log' }
+        describe 'logger device' do
+          it 'is an instance of CONNECTION' do
+            assert_instance_of(Le::Host::CONNECTION, logdev)
+          end
+          it 'local is true' do
+            assert(logdev.local)
+          end
+        end
+        describe 'logger console' do
+          it 'is an instance of Logger' do
+            assert_instance_of(Logger, logger_console)
+          end
+        end
+        describe 'logger console device' do
+          it 'is an instance of File' do
+            assert_instance_of(File, logger_console_dev)
+          end
+          it 'path matches expected log filename' do
+            assert_match('local_log.log', logger_console_dev.path)
+          end
+        end
       end
     end
   end
