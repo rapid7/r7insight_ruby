@@ -15,31 +15,6 @@ Example
     Rails.logger.warn("warning message")
     Rails.logger.debug("debug message")
 
-Development
--------
-When developing functionality you will require the following:  
-- ruby version `2.6.5`
-- bundle version `2.0.2`
-- gem version `3.0.6`
-- rvm version `1.29.9`
-
-Development flow
-- Fork the main repository
-- Clone your fork
-- Implement functionality
-- `make test` for testing
-- Push and create a pull request into the main Rapid7 repository
-- Once pull request is approved `make (major|minor|patch)` for bumping versions
-- Push again into the branch
-- Pull request should get approved and merged
-
-Deployment information for Rapid7 developers
-- Pull down the merged master which includes the Pull request changes
-- `make build`
-- `gem push r7insight<VERSION>.gem`
-
-JetBrains RubyMine was used to develop this gem.  
-
 Howto
 -----
 
