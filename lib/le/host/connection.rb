@@ -71,9 +71,7 @@ module Le
         end
 
         # Check if region was specified
-        if region.empty?
-          puts("\n\nYou need to specify a region. Options: eu, us")
-        end
+        puts("\n\nYou need to specify a region, such as 'eu'") if region.empty?
 
         # Check if DataHub is enabled
         # If datahub is not enabled, set the token to the token's parameter

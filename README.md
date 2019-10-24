@@ -76,7 +76,7 @@ You can also specify the default level of the logger by adding a :
 For the `LOG_TOKEN` argument, paste the token for the logfile you created earlier in the InsightOps UI or empty string for
 a UDP connection.
 
-For the `REGION` argument, provide the region of your account, e.g: 'eu', 'us'.
+For the `REGION` argument, provide the region of your account, e.g: 'eu', 'us' etc.
 
 Additionally, when connecting via UDP, be sure to specify a port using the udp_port parameter:
 

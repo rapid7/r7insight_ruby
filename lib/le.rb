@@ -51,7 +51,6 @@ module Le
       puts "\nLE: It appears the LOGENTRIES_TOKEN you entered is invalid!\n"
     end
 
-    # This checks if region is valid. So far we have Europe and US
-    puts "\nLE: You need to specify region. Options: eu, us" unless region
+    puts "\nLE: You need to specify region, such as 'eu'" unless region
   end
 end
