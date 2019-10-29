@@ -5,7 +5,7 @@ require 'openssl'
 require 'timeout'
 require 'uri'
 
-module Le
+module InsightOps
   module Host
     # Class for connecting to InsightOps and handling the connection
     class CONNECTION
@@ -26,7 +26,7 @@ module Le
         Errno::EPIPE
       ].freeze
 
-      include Le::Host::InstanceMethods
+      include InsightOps::Host::InstanceMethods
       attr_accessor :token, :region, :queue, :started, :thread, :conn, :local,
                     :debug, :ssl, :datahub_enabled, :datahub_ip, :datahub_port,
                     :datahub_endpoint, :host_id, :host_name_enabled, :host_name,
@@ -143,7 +143,7 @@ module Le
 
       def start_async_thread
         @thread = Thread.new { run }
-        dbg 'LE: Asynchronous socket writer started'
+        dbg 'InsightOps: Asynchronous socket writer started'
         @started = true
       end
 
@@ -152,12 +152,12 @@ module Le
       end
 
       def close
-        dbg 'LE: Closing asynchronous socket writer'
+        dbg 'InsightOps: Closing asynchronous socket writer'
         @started = false
       end
 
       def open_connection
-        dbg 'LE: Reopening connection to Logentries API server'
+        dbg 'InsightOps: Reopening connection to InsightOps API server'
 
         if @use_data_endpoint
           host = @region + DATA_ENDPOINT
@@ -202,7 +202,7 @@ module Le
           end
         end
 
-        dbg 'LE: Connection established'
+        dbg 'InsightOps: Connection established'
       end
 
       def reopen_connection
@@ -213,16 +213,16 @@ module Le
             open_connection
             break
           rescue *CONNECTION_EXCEPTIONS
-            dbg "LE: Unable to connect to Logentries due to timeout
+            dbg "InsightOps: Unable to connect to InsightOps due to timeout
 (#{$ERROR_INFO})"
           rescue StandardError
-            dbg "LE: Got exception in reopenConnection - #{$ERROR_INFO}"
+            dbg "InsightOps: Got exception in reopenConnection - #{$ERROR_INFO}"
             raise
           end
           root_delay *= 2
           root_delay = 10 if root_delay >= 10
           wait_for = (root_delay + rand(root_delay)).to_i
-          dbg "LE: Waiting for #{wait_for}ms"
+          dbg "InsightOps: Waiting for #{wait_for}ms"
           sleep(wait_for)
         end
       end
@@ -235,7 +235,7 @@ module Le
             @conn.close
           end
         rescue StandardError
-          dbg "LE: couldn't close connection, close with exception -
+          dbg "InsightOps: couldn't close connection, close with exception -
  #{$ERROR_INFO}"
         ensure
           @conn = nil
@@ -253,19 +253,19 @@ module Le
             begin
               @conn.write(data)
             rescue *CONNECTION_EXCEPTIONS
-              dbg "LE: Connection timeout(#{$ERROR_INFO}), try to reopen
+              dbg "InsightOps: Connection timeout(#{$ERROR_INFO}), try to reopen
 connection"
               reopen_connection
               next
             rescue StandardError
-              dbg("LE: Got exception in run loop - #{$ERROR_INFO}")
+              dbg "InsightOps: Got exception in run loop - #{$ERROR_INFO}"
               raise
             end
             break
           end
         end
 
-        dbg 'LE: Closing Asynchronous socket writer'
+        dbg 'InsightOps: Closing Asynchronous socket writer'
 
         close_connection
       end
@@ -284,14 +284,14 @@ connection"
       def shutdown!
         return unless @started
 
-        dbg "LE: commencing shutdown, queue has #{queue.size} entries to clear"
+        dbg "InsightOps: commencing shutdown, queue has #{queue.size} entries to clear"
         queue << SHUTDOWN_COMMAND
         SHUTDOWN_MAX_WAIT.div(SHUTDOWN_WAIT_STEP).times do
           break if queue.empty?
 
           sleep SHUTDOWN_WAIT_STEP
         end
-        dbg "LE: shutdown complete, queue is #{queue.empty? ? '' : 'not '}
+        dbg "InsightOps: shutdown complete, queue is #{queue.empty? ? '' : 'not '}
              empty with #{queue.size} entries"
       end
     end

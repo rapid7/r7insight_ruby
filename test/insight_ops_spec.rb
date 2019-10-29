@@ -2,18 +2,18 @@
 
 require 'spec_helper'
 
-describe Le do
+describe InsightOps do
   let(:token)              { '11111111-2222-3333-aaaa-bbbbbbbbbbbb' }
   let(:local)              { false }
   let(:region)             { 'eu' }
-  let(:logger)             { Le.new(token, region, local: local) }
+  let(:logger)             { InsightOps.new(token, region, local: local) }
   let(:logdev)             { logger.instance_variable_get(:@logdev).dev }
   let(:logger_console)     { logdev.instance_variable_get(:@logger_console) }
   let(:logger_console_dev) { logger_console.instance_variable_get(:@logdev).dev }
 
   describe 'when non-Rails environment' do
     describe 'is initialised with just a token' do
-      let(:logger) { Le.new(token, region) }
+      let(:logger) { InsightOps.new(token, region) }
 
       describe 'logger' do
         it 'should be a Logger instance' do
@@ -22,8 +22,8 @@ describe Le do
       end
 
       describe 'logger device' do
-        it 'is an instance of Le::Host::CONNECTION' do
-          assert_instance_of(Le::Host::CONNECTION, logdev)
+        it 'is an instance of InsightOps::Host::CONNECTION' do
+          assert_instance_of(InsightOps::Host::CONNECTION, logdev)
         end
         it 'local is false' do
           refute(logdev.local)
@@ -41,7 +41,7 @@ describe Le do
     end
 
     describe 'is initialized with :ssl => true' do
-      let(:logger) { Le.new(token, region, ssl: true) }
+      let(:logger) { InsightOps.new(token, region, ssl: true) }
 
       describe 'logger device' do
         it 'ssl is true' do
@@ -51,7 +51,7 @@ describe Le do
     end
 
     describe 'is initialized with :ssl => false' do
-      let(:logger) { Le.new(token, region, ssl: false) }
+      let(:logger) { InsightOps.new(token, region, ssl: false) }
 
       describe 'logger device' do
         it 'ssl is false' do
@@ -96,7 +96,7 @@ describe Le do
 
         describe 'logger device' do
           it 'is an instance of our CONNECTION' do
-            assert_instance_of(Le::Host::CONNECTION, logdev)
+            assert_instance_of(InsightOps::Host::CONNECTION, logdev)
           end
           it 'local is true' do
             assert(logdev.local)
@@ -124,7 +124,7 @@ describe Le do
 
         describe 'logger device' do
           it 'is an instance of CONNECTION' do
-            assert_instance_of(Le::Host::CONNECTION, logdev)
+            assert_instance_of(InsightOps::Host::CONNECTION, logdev)
           end
           it 'local is true' do
             assert(logdev.local)
@@ -152,7 +152,7 @@ describe Le do
 
         describe 'logger device' do
           it 'is an instance of CONNECTION' do
-            assert_instance_of(Le::Host::CONNECTION, logdev)
+            assert_instance_of(InsightOps::Host::CONNECTION, logdev)
           end
           it 'local is true' do
             assert(logdev.local)
@@ -235,7 +235,7 @@ describe Le do
 
         describe 'logger device' do
           it 'is an instance of CONNECTION' do
-            assert_instance_of(Le::Host::CONNECTION, logdev)
+            assert_instance_of(InsightOps::Host::CONNECTION, logdev)
           end
           it 'local is true' do
             assert(logdev.local)
@@ -261,7 +261,7 @@ describe Le do
 
         describe 'logger device' do
           it 'is an instance of CONNECTION' do
-            assert_instance_of(Le::Host::CONNECTION, logdev)
+            assert_instance_of(InsightOps::Host::CONNECTION, logdev)
           end
           it 'local is true' do
             assert(logdev.local)
@@ -287,7 +287,7 @@ describe Le do
 
         describe 'logger device' do
           it 'is an instance of CONNECTION' do
-            assert_instance_of(Le::Host::CONNECTION, logdev)
+            assert_instance_of(InsightOps::Host::CONNECTION, logdev)
           end
           it 'local is true' do
             assert(logdev.local)

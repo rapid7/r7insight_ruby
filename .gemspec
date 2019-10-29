@@ -4,7 +4,7 @@ require 'English'
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'le'
+require 'insight_ops'
 
 Gem::Specification.new do |gem|
   gem.name = 'r7insight'
