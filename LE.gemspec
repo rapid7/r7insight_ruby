@@ -13,11 +13,10 @@ Gem::Specification.new do |gem|
   gem.summary = 'InsightOps logging plugin'
   gem.licenses    = ['MIT']
   gem.description = <<DESC
-
-
+    Rapid7 InsightOps ruby library for logging
 DESC
 
-  gem.authors = ['Mark Lacomber', 'Stephen Hynes']
+  gem.authors = ['Rapid7']
   gem.email = 'support@rapid7.com'
   gem.homepage = 'https://github.com/rapid7/r7insight_ruby'
   gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
