@@ -187,8 +187,8 @@ module InsightOps
             ssl_context = OpenSSL::SSL::SSLContext.new
             ssl_context.cert_store = cert_store
 
-            ssl_context.min_version = OpenSSL::SSL::TLS1_VERSION
-            ssl_context.max_version = OpenSSL::SSL::TLS1_2_VERSION
+            ssl_context.min_version = OpenSSL::SSL::TLS1_1_VERSION
+            ssl_context.max_version = OpenSSL::SSL::TLS1_3_VERSION
             ssl_context.verify_mode = OpenSSL::SSL::VERIFY_PEER
             ssl_socket = OpenSSL::SSL::SSLSocket.new(socket, ssl_context)
             ssl_socket.hostname = host if ssl_socket.respond_to?(:hostname=)
