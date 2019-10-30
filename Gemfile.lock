@@ -23,7 +23,7 @@ GEM
     zeitwerk (2.2.0)
 
 PLATFORMS
-  ruby "~> 2.5.0"
+  ruby
 
 DEPENDENCIES
   activesupport (~> 6.0.0)
