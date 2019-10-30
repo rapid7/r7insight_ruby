@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'pathname'
 
-describe InsightOps::Host::CONNECTION do
+describe R7Insight::Host::CONNECTION do
   let(:token)              { '11111111-2222-3333-aaaa-bbbbbbbbbbbb' }
   let(:region)             { 'eu' }
   let(:local)              { false }
@@ -17,15 +17,15 @@ describe InsightOps::Host::CONNECTION do
   let(:endpoint) { false }
 
   let(:host) do
-    InsightOps::Host::CONNECTION.new(token, region, local, debug, ssl, datahub_endpoint,
-                                     host_id, custom_host, udp, endpoint)
+    R7Insight::Host::CONNECTION.new(token, region, local, debug, ssl, datahub_endpoint,
+                                    host_id, custom_host, udp, endpoint)
   end
 
   let(:logger_console) { host.instance_variable_get(:@logger_console) }
 
   describe 'host' do
     it 'is an instance of CONNECTION' do
-      assert_instance_of(InsightOps::Host::CONNECTION, host)
+      assert_instance_of(R7Insight::Host::CONNECTION, host)
     end
     it 'region is expected value' do
       assert_equal(host.region, 'eu')

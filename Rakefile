@@ -14,5 +14,5 @@ task spec: [:test]
 
 desc 'Open an irb session preloaded with this library'
 task :console do
-  sh 'irb -rubygems -I lib -r insight_ops.rb'
+  sh 'irb -rubygems -I lib -r r7_insight.rb'
 end

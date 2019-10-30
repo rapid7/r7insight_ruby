@@ -5,9 +5,9 @@ require 'openssl'
 require 'timeout'
 require 'uri'
 
-module InsightOps
+module R7Insight
   module Host
-    # Class for connecting to InsightOps and handling the connection
+    # Class for connecting to R7Insight and handling the connection
     class CONNECTION
       DATA_ENDPOINT = '.data.logs.insight.rapid7.com'
       DATA_PORT_UNSECURE = 80
@@ -26,7 +26,7 @@ module InsightOps
         Errno::EPIPE
       ].freeze
 
-      include InsightOps::Host::InstanceMethods
+      include R7Insight::Host::InstanceMethods
       attr_accessor :token, :region, :queue, :started, :thread, :conn, :local,
                     :debug, :ssl, :datahub_enabled, :datahub_ip, :datahub_port,
                     :datahub_endpoint, :host_id, :host_name_enabled, :host_name,
@@ -143,7 +143,7 @@ module InsightOps
 
       def start_async_thread
         @thread = Thread.new { run }
-        dbg 'InsightOps: Asynchronous socket writer started'
+        dbg 'R7Insight: Asynchronous socket writer started'
         @started = true
       end
 
@@ -152,12 +152,12 @@ module InsightOps
       end
 
       def close
-        dbg 'InsightOps: Closing asynchronous socket writer'
+        dbg 'R7Insight: Closing asynchronous socket writer'
         @started = false
       end
 
       def open_connection
-        dbg 'InsightOps: Reopening connection to InsightOps API server'
+        dbg 'R7Insight: Reopening connection to R7Insight API server'
 
         if @use_data_endpoint
           host = @region + DATA_ENDPOINT
@@ -202,7 +202,7 @@ module InsightOps
           end
         end
 
-        dbg 'InsightOps: Connection established'
+        dbg 'R7Insight: Connection established'
       end
 
       def reopen_connection
@@ -213,16 +213,16 @@ module InsightOps
             open_connection
             break
           rescue *CONNECTION_EXCEPTIONS
-            dbg "InsightOps: Unable to connect to InsightOps due to timeout
+            dbg "R7Insight: Unable to connect to R7Insight due to timeout
 (#{$ERROR_INFO})"
           rescue StandardError
-            dbg "InsightOps: Got exception in reopenConnection - #{$ERROR_INFO}"
+            dbg "R7Insight: Got exception in reopenConnection - #{$ERROR_INFO}"
             raise
           end
           root_delay *= 2
           root_delay = 10 if root_delay >= 10
           wait_for = (root_delay + rand(root_delay)).to_i
-          dbg "InsightOps: Waiting for #{wait_for}ms"
+          dbg "R7Insight: Waiting for #{wait_for}ms"
           sleep(wait_for)
         end
       end
@@ -235,7 +235,7 @@ module InsightOps
             @conn.close
           end
         rescue StandardError
-          dbg "InsightOps: couldn't close connection, close with exception -
+          dbg "R7Insight: couldn't close connection, close with exception -
  #{$ERROR_INFO}"
         ensure
           @conn = nil
@@ -253,19 +253,19 @@ module InsightOps
             begin
               @conn.write(data)
             rescue *CONNECTION_EXCEPTIONS
-              dbg "InsightOps: Connection timeout(#{$ERROR_INFO}), try to reopen
+              dbg "R7Insight: Connection timeout(#{$ERROR_INFO}), try to reopen
 connection"
               reopen_connection
               next
             rescue StandardError
-              dbg "InsightOps: Got exception in run loop - #{$ERROR_INFO}"
+              dbg "R7Insight: Got exception in run loop - #{$ERROR_INFO}"
               raise
             end
             break
           end
         end
 
-        dbg 'InsightOps: Closing Asynchronous socket writer'
+        dbg 'R7Insight: Closing Asynchronous socket writer'
 
         close_connection
       end
@@ -284,14 +284,14 @@ connection"
       def shutdown!
         return unless @started
 
-        dbg "InsightOps: commencing shutdown, queue has #{queue.size} entries to clear"
+        dbg "R7Insight: commencing shutdown, queue has #{queue.size} entries to clear"
         queue << SHUTDOWN_COMMAND
         SHUTDOWN_MAX_WAIT.div(SHUTDOWN_WAIT_STEP).times do
           break if queue.empty?
 
           sleep SHUTDOWN_WAIT_STEP
         end
-        dbg "InsightOps: shutdown complete, queue is #{queue.empty? ? '' : 'not '}
+        dbg "R7Insight: shutdown complete, queue is #{queue.empty? ? '' : 'not '}
              empty with #{queue.size} entries"
       end
     end

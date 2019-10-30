@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require File.join(File.dirname(__FILE__), 'insight_ops', 'host')
+require File.join(File.dirname(__FILE__), 'r7_insight', 'host')
 
 require 'logger'
 
-# InsightOps Ruby Logging functionality
-module InsightOps
+# R7Insight Ruby Logging functionality
+module R7Insight
   def self.new(token, region, options = {})
     opt_local     = options[:local]                     || false
     opt_debug     = options[:debug]                     || false
@@ -23,9 +23,9 @@ module InsightOps
 
     check_params(token, region, opt_datahub_enabled, opt_udp_port)
 
-    host = InsightOps::Host.new(token, region, opt_local, opt_debug, opt_ssl,
-                                opt_datahub_endpoint, opt_host_id, opt_custom_host,
-                                opt_udp_port, opt_use_data_endpoint)
+    host = R7Insight::Host.new(token, region, opt_local, opt_debug, opt_ssl,
+                               opt_datahub_endpoint, opt_host_id, opt_custom_host,
+                               opt_udp_port, opt_use_data_endpoint)
 
     if defined?(ActiveSupport::TaggedLogging) &&  opt_tag
       logger = ActiveSupport::TaggedLogging.new(Logger.new(host))
@@ -48,7 +48,7 @@ module InsightOps
 
     # Check if the key is valid UUID format
     if (token =~ /\A(urn:uuid:)?[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}\z/i).nil?
-      puts "\nLE: It appears the INSIGHTOPS_TOKEN you entered is invalid!\n"
+      puts "\nLE: It appears the R7INSIGHT_TOKEN you entered is invalid!\n"
     end
 
     puts "\nLE: You need to specify region, such as 'eu'" unless region

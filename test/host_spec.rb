@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe InsightOps::Host do
+describe R7Insight::Host do
   let(:token)   { '11111111-2222-3333-aaaa-bbbbbbbbbbbb' }
   let(:region)  { 'eu' }
   let(:local)   { false }
@@ -16,12 +16,12 @@ describe InsightOps::Host do
   let(:use_data_endpoint) { true }
 
   let(:host) do
-    InsightOps::Host::CONNECTION.new(token, region, local, debug, ssl, datahub_endpoint,
-                                     host_id, custom_host, udp, use_data_endpoint)
+    R7Insight::Host::CONNECTION.new(token, region, local, debug, ssl, datahub_endpoint,
+                                    host_id, custom_host, udp, use_data_endpoint)
   end
   describe 'host' do
     it 'is an instance of CONNECTION' do
-      assert_instance_of(InsightOps::Host::CONNECTION, host)
+      assert_instance_of(R7Insight::Host::CONNECTION, host)
     end
   end
 end

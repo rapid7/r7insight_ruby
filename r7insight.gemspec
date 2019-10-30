@@ -4,16 +4,16 @@ require 'English'
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'insight_ops'
+require 'r7_insight'
 
 Gem::Specification.new do |gem|
   gem.name = 'r7insight'
   gem.version = '3.0.0'
   gem.date = Time.now
-  gem.summary = 'InsightOps logging plugin'
+  gem.summary = 'R7Insight logging plugin'
   gem.licenses    = ['MIT']
   gem.description = <<DESC
-    Rapid7 InsightOps Ruby library for logging
+    R7Insight Ruby library for logging
 DESC
 
   gem.authors = ['Rapid7']

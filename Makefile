@@ -5,7 +5,7 @@ test: ## Run the unit tests
 	bundle exec rake --trace
 
 build: ## Build the ruby gem
-	gem build .gemspec
+	gem build r7insight.gemspec
 
 bump-major: ## Bump the major version (1.0.0 -> 2.0.0)
 	@which bump || (echo "You do not have 'bump' installed or in your PATH.\n" \

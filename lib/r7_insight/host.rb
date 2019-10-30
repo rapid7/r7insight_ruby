@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module InsightOps
-  # InsightOps Logging Host
+module R7Insight
+  # R7Insight Logging Host
   module Host
     def self.new(token, region, local, debug, ssl, datahub_endpoint, host_id,
                  custom_host, udp_port, use_data_endpoint)
-      InsightOps::Host::CONNECTION.new(token, region, local, debug, ssl,
-                                       datahub_endpoint, host_id, custom_host,
-                                       udp_port, use_data_endpoint)
+      R7Insight::Host::CONNECTION.new(token, region, local, debug, ssl,
+                                      datahub_endpoint, host_id, custom_host,
+                                      udp_port, use_data_endpoint)
     end
 
     # Log formatter
