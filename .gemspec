@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.summary = 'InsightOps logging plugin'
   gem.licenses    = ['MIT']
   gem.description = <<DESC
-    Rapid7 InsightOps ruby library for logging
+    Rapid7 InsightOps Ruby library for logging
 DESC
 
   gem.authors = ['Rapid7']
