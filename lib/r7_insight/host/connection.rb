@@ -7,7 +7,8 @@ require 'uri'
 
 module R7Insight
   module Host
-    # Class for connecting to R7Insight and handling the connection
+    # Class for connecting to the Rapid7 Insight Platform and handling the
+    # connection
     class CONNECTION
       DATA_ENDPOINT = '.data.logs.insight.rapid7.com'
       DATA_PORT_UNSECURE = 80

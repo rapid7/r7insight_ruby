@@ -10,10 +10,10 @@ Gem::Specification.new do |gem|
   gem.name = 'r7insight'
   gem.version = '3.0.0'
   gem.date = Time.now
-  gem.summary = 'R7Insight logging plugin'
+  gem.summary = 'Rapid7 Insight Platform logging plugin'
   gem.licenses    = ['MIT']
   gem.description = <<DESC
-    R7Insight Ruby library for logging
+    Rapid7 Insight Platform Ruby library for logging
 DESC
 
   gem.authors = ['Rapid7']

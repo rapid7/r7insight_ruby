@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), 'r7_insight', 'host')
 
 require 'logger'
 
-# R7Insight Ruby Logging functionality
+# Rapid7 Insight Platform Ruby Logging functionality
 module R7Insight
   def self.new(token, region, options = {})
     opt_local     = options[:local]                     || false

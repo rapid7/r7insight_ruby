@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module R7Insight
-  # R7Insight Logging Host
+  # Rapid7 Insight Platform Logging Host
   module Host
     def self.new(token, region, local, debug, ssl, datahub_endpoint, host_id,
                  custom_host, udp_port, use_data_endpoint)
