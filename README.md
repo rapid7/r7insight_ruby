@@ -1,5 +1,5 @@
 Logging to Rapid7 Insight Platform in Ruby
-=============================
+==========================================
 
 [![Build Status](https://travis-ci.org/rapid7/r7insight_ruby.svg?branch=master)](https://travis-ci.org/rapid7/r7insight_ruby)
 This is a library for logging from Ruby platforms to the Rapid7 Insight Platform, including Heroku.
