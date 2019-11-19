@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 DESC
 
   gem.authors = ['Rapid7']
-  gem.email = 'support@rapid7.com'
+  gem.email = 'InsightOpsTeam@rapid7.com'
   gem.homepage = 'https://github.com/rapid7/r7insight_ruby'
   gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
