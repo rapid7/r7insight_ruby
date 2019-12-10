@@ -189,7 +189,8 @@ module R7Insight
             ssl_context.cert_store = cert_store
 
             ssl_context.min_version = OpenSSL::SSL::TLS1_1_VERSION
-            ssl_context.max_version = OpenSSL::SSL::TLS1_3_VERSION
+            # For older versions of openssl (prior to 1.1.1) missing support for TLSv1.3
+            ssl_context.max_version = defined?(OpenSSL::SSL::TLS1_3_VERSION) ? OpenSSL::SSL::TLS1_3_VERSION : OpenSSL::SSL::TLS1_2_VERSION
             ssl_context.verify_mode = OpenSSL::SSL::VERIFY_PEER
             ssl_socket = OpenSSL::SSL::SSLSocket.new(socket, ssl_context)
             ssl_socket.hostname = host if ssl_socket.respond_to?(:hostname=)
