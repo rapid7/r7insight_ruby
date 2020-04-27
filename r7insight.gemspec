@@ -8,7 +8,7 @@ require 'r7_insight'
 
 Gem::Specification.new do |gem|
   gem.name = 'r7insight'
-  gem.version = '3.0.2'
+  gem.version = '3.0.3'
   gem.date = Time.now
   gem.summary = 'Rapid7 Insight Platform logging plugin'
   gem.licenses    = ['MIT']
