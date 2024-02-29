@@ -24,7 +24,7 @@ DESC
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
-  gem.add_development_dependency 'activesupport', '~> 6.0.0'
+  gem.add_development_dependency 'activesupport', '~> 6.1.7'
   gem.add_development_dependency 'bundler', '~> 2.0.0'
   gem.add_development_dependency 'minitest', '~> 5.12.2'
   gem.add_development_dependency 'rake', '~> 13.0.0'
