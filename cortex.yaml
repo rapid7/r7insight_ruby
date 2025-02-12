@@ -1,0 +1,15 @@
+---
+info:
+  title: R7insight Ruby
+  description: Ruby logging support for InsightOps
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/r7insight_ruby
+  x-cortex-tag: r7insight-ruby
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: logsearch
+openapi: 3.0.1
+servers:
+- url: "/"
