@@ -8,6 +8,8 @@ info:
       repository: rapid7/r7insight_ruby
   x-cortex-tag: r7insight-ruby
   x-cortex-type: service
+  x-cortex-groups:
+  - exposure:opensource
   x-cortex-domain-parents:
   - tag: logsearch
 openapi: 3.0.1
